@@ -1,50 +1,213 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+// Configurable constants
+const siteTitle = "Digital Phantoms // Luke P.D.";
+const bookTitle = "DIGITAL PHANTOMS";
+const bookSubtitle = "Living in the mirror of AI and social media";
+const tagLine = "Human language is no longer an abstract concept—it is an executable instruction set.";
+
+// Replace with your site's Turnstile Site Key (Get from Cloudflare Dashboard -> Turnstile)
+const TURNSTILE_SITE_KEY = "0x4AAAAAAAxXxXxXxXxXxXxX"; 
+
+// Replace with your Buttondown username (or custom API worker endpoint)
+const BUTTONDOWN_USERNAME = "your_username";
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{siteTitle}</title>
+  <meta name="description" content={tagLine} />
+  
+  <!-- Cloudflare Turnstile Explicit Script -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+  <style>
+    /* Ultra-lightweight CSS variables & dark mode reset */
+    :root {
+      --bg-color: #0d0f12;
+      --card-bg: #14171c;
+      --border-color: #262b33;
+      --text-main: #e6e8eb;
+      --text-muted: #8b949e;
+      --accent: #ffffff;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 640px;
+      width: 100%;
+    }
+
+    .terminal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-tag {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .teaser-quote {
+      border-left: 2px solid var(--border-color);
+      padding-left: 1rem;
+      margin-bottom: 2.5rem;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    input[type="email"] {
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      padding: 0.85rem 1rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input[type="email"]:focus {
+      border-color: var(--text-muted);
+    }
+
+    button {
+      background: var(--accent);
+      color: var(--bg-color);
+      border: none;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      padding: 0.85rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: opacity 0.2s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .cf-turnstile {
+      margin-top: 0.25rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+    <div class="terminal-card">
+      <div class="header-tag">// MANUSCRIPT_STATUS: PRE_RELEASE</div>
+      
+      <h1>{bookTitle}</h1>
+      <p class="subtitle">{bookSubtitle}</p>
+
+      <blockquote class="teaser-quote">
+        "{tagLine}"
+      </blockquote>
+
+      <!-- Buttondown Direct Form POST Integration -->
+      <form
+        action={`https://buttondown.email/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`}
+        method="post"
+        target="popupwindow"
+        onsubmit={`window.open('https://buttondown.email/${BUTTONDOWN_USERNAME}', 'popupwindow')`}
+      >
+        <div class="input-group">
+          <label for="bd-email">Enter email for early access & Chapter 1</label>
+          <input
+            type="email"
+            name="email"
+            id="bd-email"
+            placeholder="reader@domain.com"
+            required
+          />
+        </div>
+
+        <!-- Cloudflare Turnstile Spam Shield -->
+        <div
+          class="cf-turnstile"
+          data-sitekey={TURNSTILE_SITE_KEY}
+          data-theme="dark"
+        ></div>
+
+        <button type="submit">[ REQUEST EARLY ACCESS ]</button>
+      </form>
+    </div>
+
+    <footer>
+      <p>&copy; {new Date().getFullYear()} Luke P.D. All rights reserved.</p>
+    </footer>
+  </main>
+
+</body>
 </html>
