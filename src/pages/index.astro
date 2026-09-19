@@ -1,223 +1,257 @@
 ---
-// Configurable constants
-const siteTitle = "Digital Phantoms // Luke P.D.";
-const bookTitle = "DIGITAL PHANTOMS";
-const bookSubtitle = "Living in the mirror of AI and social media";
-const tagLine = `"Contains chapters known to cause hallucinations" 
-[No AI detected].`;
-
-// Replace with your site's Turnstile Site Key (Get from Cloudflare Dashboard -> Turnstile)
-const TURNSTILE_SITE_KEY = "0x4AAAAAAAxXxXxXxXxXxXxX"; 
-
-// Replace with your Buttondown username (or custom API worker endpoint)
-const BUTTONDOWN_USERNAME = "your_username";
+// Import fonts via Google Fonts in <head> or locally
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{siteTitle}</title>
-  <meta name="description" content={tagLine} />
+  <title>Digital Phantoms — Luke P.D.</title>
   
-  <!-- Cloudflare Turnstile Explicit Script -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
-  <style>
-    /* Ultra-lightweight CSS variables & dark mode reset */
-:root {
-  /* Page background / Bezel frame */
-  --bg-color: #000000; 
-  
-  /* Reading canvas / Active screen surface */
-  --card-bg: #0F0F0F; 
-  
-  /* Structural borders & hardware seams */
-  --border-color: #2A2A2E; 
-  
-  /* Text & Accent palette */
-  --text-main: #FFFFFF; 
-  --text-muted: #8B949E; 
-  --accent: #FFFFFF;
-  
-  /* Fonts matching the book cover */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem 1rem;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 640px;
-      width: 100%;
-    }
-
-    .terminal-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 2.5rem 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    }
-
-    .header-tag {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .subtitle {
-      font-size: 1rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
-
-    .teaser-quote {
-      white-space: pre-line;
-      border-left: 2px solid var(--border-color);
-      padding-left: 1rem;
-      margin-bottom: 2.5rem;
-      color: var(--text-main);
-      font-size: 0.95rem;
-      font-style: italic;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    input[type="email"] {
-      background: var(--bg-color);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      padding: 0.85rem 1rem;
-      border-radius: 4px;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    input[type="email"]:focus {
-      border-color: var(--text-muted);
-    }
-
-    button {
-      background: var(--accent);
-      color: var(--bg-color);
-      border: none;
-      font-family: var(--font-mono);
-      font-weight: 600;
-      padding: 0.85rem 1.5rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: opacity 0.2s ease;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-
-    .cf-turnstile {
-      margin-top: 0.25rem;
-    }
-
-    footer {
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-  </style>
+  <!-- Inter & JetBrains Mono Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <main class="container">
-    <div class="terminal-card">
-      <div class="header-tag">// MANUSCRIPT_STATUS: PRE_RELEASE</div>
+  <!-- Outer Bezel / Chassis Frame -->
+  <div class="device-frame">
+    
+    <!-- Active Screen Surface -->
+    <main class="screen-canvas">
       
-      <h1>{bookTitle}</h1>
-      <p class="subtitle">{bookSubtitle}</p>
+      <!-- Meta / Terminal Status Header -->
+      <header class="terminal-header">
+        <span class="mono-tag">// LOG_AUTHOR [UNVERIFIED]: Luke P.D.</span>
+        <span class="mono-status">[STATUS: ONLINE]</span>
+      </header>
 
-      <blockquote class="teaser-quote">{tagLine}</blockquote>
+      <!-- Main Title Block -->
+      <section class="hero">
+        <h1 class="title">DIGITAL PHANTOMS</h1>
+        <p class="subtitle">Living in the mirror of AI and social media</p>
+      </section>
 
-      <!-- Buttondown Direct Form POST Integration -->
-      <form
-        action={`https://buttondown.email/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`}
-        method="post"
-        target="popupwindow"
-        onsubmit={`window.open('https://buttondown.email/${BUTTONDOWN_USERNAME}', 'popupwindow')`}
-      >
-        <div class="input-group">
-          <label for="bd-email">Enter email for early access & Chapter 1</label>
-          <input
-            type="email"
-            name="email"
-            id="bd-email"
-            placeholder="reader@domain.com"
-            required
-          />
+      <!-- System Alert / Code Inset Frame -->
+      <div class="terminal-alert">
+        <code>// CONTAINS CHAPTERS KNOWN TO CAUSE HALLUCINATIONS</code>
+      </div>
+
+      <!-- Main Prose Content Surface -->
+      <article class="content-body">
+        <p class="lead">
+          An exploration of simulation, language games, and identity in an age governed by statistical pattern mirrors.
+        </p>
+        
+        <p>
+          We build digital architectures that echo our thoughts back to us, mistaking the reflection for context and the syntax for intent. <i>Digital Phantoms</i> examines how human consciousness navigates the boundary between authentic presence and algorithmic representation.
+        </p>
+      </article>
+
+      <!-- Footer / Metadata Deck -->
+      <footer class="terminal-footer">
+        <div class="footer-meta">
+          <span>// SYS_VER 1.0.0</span>
+          <span>© 2026 LUKE P.D.</span>
         </div>
+      </footer>
 
-        <!-- Cloudflare Turnstile Spam Shield -->
-        <div
-          class="cf-turnstile"
-          data-sitekey={TURNSTILE_SITE_KEY}
-          data-theme="dark"
-        ></div>
-
-        <button type="submit">[ REQUEST EARLY ACCESS ]</button>
-      </form>
-    </div>
-
-    <footer>
-      <p>&copy; {new Date().getFullYear()} Luke P.D. All rights reserved.</p>
-    </footer>
-  </main>
+    </main>
+  </div>
 
 </body>
 </html>
+
+<style>
+  /* ----------------------------------------------------
+     CSS VARIABLES & PALETTE SETUP
+  ---------------------------------------------------- */
+  :root {
+    --bg-bezel: #000000;      /* Pure black outer device frame */
+    --bg-screen: #0F0F0F;     /* Screen surface background */
+    --border-frame: #2A2A2E;  /* Structural seam / border frame */
+    
+    --text-main: #FFFFFF;     /* Crisp white text for main content */
+    --text-muted: #8B949E;    /* Lower contrast for metadata and tags */
+    
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* ----------------------------------------------------
+     RESET & BASE LAYOUT
+  ---------------------------------------------------- */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-bezel);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ----------------------------------------------------
+     DEVICE FRAME & SCREEN CONTAINER
+  ---------------------------------------------------- */
+  .device-frame {
+    width: 100%;
+    max-width: 720px;
+    background-color: var(--bg-bezel);
+    border: 1px solid var(--border-frame);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  }
+
+  .screen-canvas {
+    background-color: var(--bg-screen);
+    border: 1px solid var(--border-frame);
+    border-radius: 6px;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* ----------------------------------------------------
+     TERMINAL HEADERS & META TEXT
+  ---------------------------------------------------- */
+  .terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-frame);
+    padding-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .mono-tag {
+    letter-spacing: 0.02em;
+  }
+
+  .mono-status {
+    color: var(--text-main);
+    opacity: 0.8;
+  }
+
+  /* ----------------------------------------------------
+     HERO & TYPOGRAPHY
+  ---------------------------------------------------- */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text-main);
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-style: italic;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* ----------------------------------------------------
+     TERMINAL INSET BOX
+  ---------------------------------------------------- */
+  .terminal-alert {
+    background-color: var(--bg-bezel);
+    border: 1px solid var(--border-frame);
+    padding: 0.85rem 1rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+    overflow-x: auto;
+  }
+
+  /* ----------------------------------------------------
+     CONTENT BODY
+  ---------------------------------------------------- */
+  .content-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    line-height: 1.65;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text-main);
+  }
+
+  /* ----------------------------------------------------
+     FOOTER
+  ---------------------------------------------------- */
+  .terminal-footer {
+    border-top: 1px solid var(--border-frame);
+    padding-top: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .footer-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* ----------------------------------------------------
+     MOBILE RESPONSIVENESS
+  ---------------------------------------------------- */
+  @media (max-width: 600px) {
+    body {
+      padding: 0.5rem;
+    }
+
+    .device-frame {
+      padding: 6px;
+      border-radius: 8px;
+    }
+
+    .screen-canvas {
+      padding: 1.5rem 1.25rem;
+      gap: 1.5rem;
+    }
+
+    .terminal-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .footer-meta {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>
