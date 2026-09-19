@@ -119,7 +119,7 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 4rem 1.5rem;
+    padding: 3.5rem 1.25rem; /* Prevents edge-touching on mobile */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -133,7 +133,7 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
   }
 
   /* ----------------------------------------------------
-     TERMINAL HEADERS & META TEXT
+     TERMINAL HEADERS & META TEXT (ALWAYS SINGLE ROW)
   ---------------------------------------------------- */
   .terminal-header {
     display: flex;
@@ -144,8 +144,7 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
     color: var(--text-muted);
     border-bottom: 1px solid var(--border-subtle);
     padding-bottom: 1.25rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    white-space: nowrap;
   }
 
   .mono-status {
@@ -162,16 +161,17 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
     gap: 0.5rem;
   }
 
+  /* Raised lower clamp bound so title stays bold and large on phone screens */
   .title {
-    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    font-size: clamp(2.8rem, 8vw, 3.8rem);
     font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
     color: var(--text-main);
   }
 
   .subtitle {
-    font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
     font-style: italic;
     color: var(--text-muted);
     font-weight: 400;
@@ -301,7 +301,7 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
   }
 
   /* ----------------------------------------------------
-     FOOTER
+     FOOTER (ALWAYS SINGLE ROW)
   ---------------------------------------------------- */
   .terminal-footer {
     border-top: 1px solid var(--border-subtle);
@@ -315,21 +315,28 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--text-muted);
+    white-space: nowrap;
   }
 
   /* ----------------------------------------------------
-     MOBILE RESPONSIVENESS
+     MOBILE ADJUSTMENTS (ONLY FORM STACKING)
   ---------------------------------------------------- */
   @media (max-width: 600px) {
     body {
-      padding: 2.5rem 1rem;
+      padding: 2rem 1.25rem;
     }
+
+    .terminal-header,
+    .footer-meta {
+      font-size: 0.72rem; /* Slightly smaller text on mobile so rows fit side-by-side */
+    }
+
     .subscribe-form {
       flex-direction: column;
     }
 
     .submit-btn {
-      width: 90%;
+      width: 100%;
       padding: 0.9rem;
     }
   }
