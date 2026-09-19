@@ -1,5 +1,6 @@
 ---
-// Import fonts via Google Fonts in <head> or locally
+// Buttondown form action URL: Replace username with your actual Buttondown handle
+const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME";
 ---
 
 <!DOCTYPE html>
@@ -16,50 +17,70 @@
 </head>
 <body>
 
-  <!-- Outer Bezel / Chassis Frame -->
-  <div class="device-frame">
+  <main class="container">
     
-    <!-- Active Screen Surface -->
-    <main class="screen-canvas">
-      
-      <!-- Meta / Terminal Status Header -->
-      <header class="terminal-header">
-        <span class="mono-tag">// LOG_AUTHOR [UNVERIFIED]: Luke P.D.</span>
-        <span class="mono-status">[STATUS: ONLINE]</span>
-      </header>
+    <!-- Meta / Terminal Header -->
+    <header class="terminal-header">
+      <span class="mono-tag">// LOG_AUTHOR [UNVERIFIED]: Luke P.D.</span>
+      <span class="mono-status">[STATUS: ONLINE]</span>
+    </header>
 
-      <!-- Main Title Block -->
-      <section class="hero">
-        <h1 class="title">DIGITAL PHANTOMS</h1>
-        <p class="subtitle">Living in the mirror of AI and social media</p>
-      </section>
+    <!-- Hero Title Block -->
+    <section class="hero">
+      <h1 class="title">DIGITAL PHANTOMS</h1>
+      <p class="subtitle">Living in the mirror of AI and social media</p>
+    </section>
 
-      <!-- System Alert / Code Inset Frame -->
-      <div class="terminal-alert">
-        <code>// CONTAINS CHAPTERS KNOWN TO CAUSE HALLUCINATIONS</code>
+    <!-- Code Inset Box (#1E1F20) -->
+    <div class="code-box">
+      <div class="code-header">
+        <span class="code-dot"></span>
+        <span class="code-dot"></span>
+        <span class="code-dot"></span>
+        <span class="code-title">sys_warning.log</span>
       </div>
+      <code>// CONTAINS CHAPTERS KNOWN TO CAUSE HALLUCINATIONS</code>
+    </div>
 
-      <!-- Main Prose Content Surface -->
-      <article class="content-body">
-        <p class="lead">
-          An exploration of simulation, language games, and identity in an age governed by statistical pattern mirrors.
-        </p>
-        
-        <p>
-          We build digital architectures that echo our thoughts back to us, mistaking the reflection for context and the syntax for intent. <i>Digital Phantoms</i> examines how human consciousness navigates the boundary between authentic presence and algorithmic representation.
-        </p>
-      </article>
+    <!-- Main Content Body -->
+    <article class="content-body">
+      <p class="lead">
+        An exploration of simulation, language games, and identity in an age governed by statistical pattern mirrors.
+      </p>
+      <p>
+        We build digital architectures that echo our thoughts back to us, mistaking the reflection for context and the syntax for intent. <i>Digital Phantoms</i> examines how human consciousness navigates the boundary between authentic presence and algorithmic representation.
+      </p>
+    </article>
 
-      <!-- Footer / Metadata Deck -->
-      <footer class="terminal-footer">
-        <div class="footer-meta">
-          <span>// SYS_VER 1.0.0</span>
-          <span>© 2026 LUKE P.D.</span>
-        </div>
-      </footer>
+    <!-- Buttondown Email Capture Section -->
+    <section class="subscribe-section">
+      <p class="subscribe-label">// REQUEST EARLY ACCESS</p>
+      <form 
+        action={BUTTONDOWN_ACTION} 
+        method="post" 
+        target="popupwindow" 
+        class="subscribe-form"
+      >
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="enter email address..." 
+          required 
+          class="email-input"
+        />
+        <button type="submit" class="submit-btn">GET ACCESS</button>
+      </form>
+    </section>
 
-    </main>
-  </div>
+    <!-- Footer -->
+    <footer class="terminal-footer">
+      <div class="footer-meta">
+        <span>// SYS_VER 1.0.0</span>
+        <span>© 2026 LUKE P.D.</span>
+      </div>
+    </footer>
+
+  </main>
 
 </body>
 </html>
@@ -69,12 +90,13 @@
      CSS VARIABLES & PALETTE SETUP
   ---------------------------------------------------- */
   :root {
-    --bg-bezel: #000000;      /* Pure black outer device frame */
-    --bg-screen: #0F0F0F;     /* Screen surface background */
-    --border-frame: #2A2A2E;  /* Structural seam / border frame */
+    --bg-main: #131314;       /* Main webpage background surface */
+    --card-code: #1E1F20;     /* Code box card background */
+    --border-subtle: #2A2A2E;  /* Minimal borders and dividers */
     
-    --text-main: #FFFFFF;     /* Crisp white text for main content */
-    --text-muted: #8B949E;    /* Lower contrast for metadata and tags */
+    --text-main: #FFFFFF;     /* Pure white for primary headings and code text */
+    --text-body: #E6E8EB;     /* Readable off-white for body prose */
+    --text-muted: #8B949E;    /* Low contrast for metadata and tags */
     
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -90,39 +112,24 @@
   }
 
   body {
-    background-color: var(--bg-bezel);
-    color: var(--text-main);
+    background-color: var(--bg-main);
+    color: var(--text-body);
     font-family: var(--font-sans);
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 1rem;
+    align-items: flex-start;
+    padding: 4rem 1.5rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ----------------------------------------------------
-     DEVICE FRAME & SCREEN CONTAINER
-  ---------------------------------------------------- */
-  .device-frame {
+  .container {
     width: 100%;
-    max-width: 720px;
-    background-color: var(--bg-bezel);
-    border: 1px solid var(--border-frame);
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-  }
-
-  .screen-canvas {
-    background-color: var(--bg-screen);
-    border: 1px solid var(--border-frame);
-    border-radius: 6px;
-    padding: 2.5rem 2rem;
+    max-width: 680px;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2.25rem;
   }
 
   /* ----------------------------------------------------
@@ -135,19 +142,15 @@
     font-family: var(--font-mono);
     font-size: 0.8rem;
     color: var(--text-muted);
-    border-bottom: 1px solid var(--border-frame);
-    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 1.25rem;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .mono-tag {
-    letter-spacing: 0.02em;
-  }
-
   .mono-status {
     color: var(--text-main);
-    opacity: 0.8;
+    opacity: 0.85;
   }
 
   /* ----------------------------------------------------
@@ -157,11 +160,10 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-top: 0.5rem;
   }
 
   .title {
-    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -169,25 +171,52 @@
   }
 
   .subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-size: clamp(1.05rem, 2.5vw, 1.25rem);
     font-style: italic;
     color: var(--text-muted);
     font-weight: 400;
   }
 
   /* ----------------------------------------------------
-     TERMINAL INSET BOX
+     CODE BOX CARD (#1E1F20)
   ---------------------------------------------------- */
-  .terminal-alert {
-    background-color: var(--bg-bezel);
-    border: 1px solid var(--border-frame);
-    padding: 0.85rem 1rem;
-    border-radius: 4px;
+  .code-box {
+    background-color: var(--card-code);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .code-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--border-subtle);
+  }
+
+  .code-title {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
-    letter-spacing: 0.03em;
-    overflow-x: auto;
+    margin-left: 6px;
+  }
+
+  .code-box code {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-main);
+    letter-spacing: 0.02em;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   /* ----------------------------------------------------
@@ -199,7 +228,6 @@
     gap: 1.25rem;
     line-height: 1.65;
     font-size: 1.05rem;
-    color: rgba(255, 255, 255, 0.9);
   }
 
   .lead {
@@ -209,11 +237,75 @@
   }
 
   /* ----------------------------------------------------
+     BUTTONDOWN SUBSCRIPTION FORM
+  ---------------------------------------------------- */
+  .subscribe-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  .subscribe-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .subscribe-form {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .email-input {
+    flex: 1;
+    background-color: var(--card-code);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .email-input:focus {
+    border-color: var(--text-muted);
+  }
+
+  .email-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+
+  .submit-btn {
+    background-color: var(--text-main);
+    color: #000000;
+    border: none;
+    border-radius: 6px;
+    padding: 0.8rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .submit-btn:hover {
+    opacity: 0.9;
+  }
+
+  /* ----------------------------------------------------
      FOOTER
   ---------------------------------------------------- */
   .terminal-footer {
-    border-top: 1px solid var(--border-frame);
-    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 1.5rem;
     margin-top: 1rem;
   }
 
@@ -230,23 +322,22 @@
   ---------------------------------------------------- */
   @media (max-width: 600px) {
     body {
-      padding: 0.5rem;
-    }
-
-    .device-frame {
-      padding: 6px;
-      border-radius: 8px;
-    }
-
-    .screen-canvas {
-      padding: 1.5rem 1.25rem;
-      gap: 1.5rem;
+      padding: 2.5rem 1rem;
     }
 
     .terminal-header {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.25rem;
+      gap: 0.35rem;
+    }
+
+    .subscribe-form {
+      flex-direction: column;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.9rem;
     }
 
     .footer-meta {
