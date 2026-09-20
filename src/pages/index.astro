@@ -163,14 +163,14 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
     gap: 0.5rem;
   }
 
-  /* Raised lower clamp bound so title stays bold and large on phone screens */
-  .title {
-    font-size: clamp(2.8rem, 8vw, 3.8rem);
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    line-height: 1.05;
-    color: var(--text-main);
-  }
+.title {
+  font-size: clamp(1.75rem, 6.5vw, 3.8rem); 
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--text-main);
+  white-space: nowrap;
+}
 
   .subtitle {
     font-size: clamp(1.1rem, 3vw, 1.3rem);
