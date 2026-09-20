@@ -102,7 +102,7 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   }
 
-  /* ----------------------------------------------------
+/* ----------------------------------------------------
      RESET & BASE LAYOUT
   ---------------------------------------------------- */
   * {
@@ -119,14 +119,16 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 3.5rem 1.25rem; /* Prevents edge-touching on mobile */
+    padding: 3.5rem 0; /* Vertical padding only */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   .container {
-    width: 100%;
+    /* Use calc() to enforce a guaranteed 1.25rem margin on both sides */
+    width: calc(100% - 2.5rem); 
     max-width: 680px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 2.25rem;
