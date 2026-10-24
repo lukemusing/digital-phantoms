@@ -1,6 +1,6 @@
 ---
-// Buttondown form action URL: Replace username with your actual Buttondown handle
-const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME";
+// Substack subscription API endpoint
+const SUBSTACK_ACTION = "https://lukepd.substack.com/api/v1/free";
 ---
 
 <!DOCTYPE html>
@@ -39,7 +39,7 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
         <span class="code-dot"></span>
         <span class="code-title">sys_warning.log</span>
       </div>
-      <code>// CONTAINS CHAPTERS KNOWN TO CAUSE HALLUCINATIONS</code>
+      <code>// CONTAINS CHAPTERS KNOWN TO CAUSE HALLUCINATIONS test</code>
     </div>
 
     <!-- Main Content Body -->
@@ -52,25 +52,29 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
       </p>
     </article>
 
-    <!-- Buttondown Email Capture Section -->
-    <section class="subscribe-section">
-      <p class="subscribe-label">// REQUEST EARLY ACCESS</p>
-      <form 
-        action={BUTTONDOWN_ACTION} 
-        method="post" 
-        target="popupwindow" 
-        class="subscribe-form"
-      >
-        <input 
-          type="email" 
-          name="email" 
-          placeholder="enter email address..." 
-          required 
-          class="email-input"
-        />
-        <button type="submit" class="submit-btn">GET ACCESS</button>
-      </form>
-    </section>
+<!-- Substack Email Capture Section -->
+<section class="subscribe-section">
+  <p class="subscribe-label">// REQUEST EARLY ACCESS</p>
+  <form 
+    action={SUBSTACK_ACTION} 
+    method="post" 
+    target="_blank" 
+    class="subscribe-form"
+  >
+    <input 
+      type="email" 
+      name="email" 
+      placeholder="enter email address..." 
+      required 
+      class="email-input"
+    />
+    <!-- Hidden input required by Substack -->
+    <input type="hidden" name="first_url" value="" />
+    <input type="hidden" name="first_referrer" value="" />
+    
+    <button type="submit" class="submit-btn">GET ACCESS</button>
+  </form>
+</section>
 
     <!-- Footer -->
     <footer class="terminal-footer">
@@ -126,7 +130,7 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
 
   .container {
     /* Use calc() to enforce margin on both sides */
-    width: calc(100% - 1rem); 
+    width: calc(100% - 1.3rem); 
     max-width: 680px;
     margin: 0 auto;
     display: flex;
@@ -157,19 +161,27 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
   /* ----------------------------------------------------
      HERO & TYPOGRAPHY
   ---------------------------------------------------- */
-  .hero {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+.hero {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden; /* Hard guard against horizontal scrollbars */
+}
 
 .title {
-    font-size: clamp(2.8rem, 8vw, 3.8rem);
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    line-height: 1.05;
-    color: var(--text-main);
+  font-size: clamp(1.4rem, 10.2vw, 3.8rem);
+  font-weight: 700;
+  
+  /* Slight negative margin shifts the visual edge of 'D' perfectly flush left */
+  margin-left: -0.06em; 
+  
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--text-main);
   white-space: nowrap;
+  display: block;
+  width: 100%;
 }
 
   .subtitle {
@@ -239,7 +251,7 @@ const BUTTONDOWN_ACTION = "https://buttondown.com/api/emails/embed-subscribe/YOU
   }
 
   /* ----------------------------------------------------
-     BUTTONDOWN SUBSCRIPTION FORM
+     SUBSCRIPTION FORM
   ---------------------------------------------------- */
   .subscribe-section {
     display: flex;
