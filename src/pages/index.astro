@@ -1,8 +1,3 @@
----
-// Substack subscription API endpoint
-const SUBSTACK_ACTION = "https://lukepd.substack.com/api/v1/free";
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +34,7 @@ const SUBSTACK_ACTION = "https://lukepd.substack.com/api/v1/free";
         <span class="code-dot"></span>
         <span class="code-title">sys_warning.log</span>
       </div>
-      <code>// CONTAINS CHAPTERS KNOWN TO CAUSE HALLUCINATIONS test</code>
+      <code>// CONTAINS CHAPTERS KNOWN TO CAUSE HALLUCINATIONS</code>
     </div>
 
     <!-- Main Content Body -->
@@ -54,27 +49,65 @@ const SUBSTACK_ACTION = "https://lukepd.substack.com/api/v1/free";
 
 <!-- Substack Email Capture Section -->
 <section class="subscribe-section">
-  <p class="subscribe-label">// REQUEST EARLY ACCESS</p>
-  <form 
-    action={SUBSTACK_ACTION} 
-    method="post" 
-    target="_blank" 
-    class="subscribe-form"
-  >
+  <p class="subscribe-label" id="subscribe-label">// REQUEST EARLY ACCESS</p>
+  <form id="substack-form" class="subscribe-form">
     <input 
       type="email" 
+      id="email-input"
       name="email" 
       placeholder="enter email address..." 
       required 
       class="email-input"
     />
-    <!-- Hidden input required by Substack -->
-    <input type="hidden" name="first_url" value="" />
-    <input type="hidden" name="first_referrer" value="" />
-    
-    <button type="submit" class="submit-btn">GET ACCESS</button>
+    <button type="submit" id="submit-btn" class="submit-btn">GET ACCESS</button>
   </form>
 </section>
+
+<script>
+  const form = document.getElementById('substack-form');
+  const label = document.getElementById('subscribe-label');
+  const button = document.getElementById('submit-btn');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (document.getElementById('email-input') as HTMLInputElement).value;
+    
+    button.textContent = "SENDING...";
+    button.style.opacity = "0.7";
+
+    try {
+      // Direct request to Substack's free subscription handler
+      const response = await fetch('https://lukepd.substack.com/api/v1/free', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          first_url: window.location.href,
+          first_referrer: document.referrer,
+        }),
+      });
+
+      if (response.ok) {
+        label.textContent = "// ACCESS REQUESTED [CHECK INBOX]";
+        label.style.color = "#4E9F3D"; // Terminal green success status
+        form.reset();
+        button.textContent = "CONFIRMED";
+      } else {
+        // Fallback: Redirect if CORS/CSRF blocks client background fetch
+        window.open(`https://lukepd.substack.com/subscribe?email=${encodeURIComponent(email)}`, '_blank');
+      }
+    } catch (err) {
+      // Fallback: Redirect if network block occurs
+      window.open(`https://lukepd.substack.com/subscribe?email=${encodeURIComponent(email)}`, '_blank');
+    } finally {
+      button.style.opacity = "1";
+    }
+  });
+</script>
+
+
 
     <!-- Footer -->
     <footer class="terminal-footer">
